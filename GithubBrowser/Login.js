@@ -29,6 +29,19 @@ class Login extends Component {
   };
 
   render() {
+
+    var errorCtrl = <View />;
+
+    if(!this.state.success && this.state.badCredentials)
+    {
+      errorCtrl = <Text style = {styles.error}> The username or password provided was incorrect</Text>;
+    }
+
+    if(!this.state.success && this.state.unknownError)
+    {
+      errorCtrl = <Text style = {styles.error}> Sorry, we are experiencing an unexpected issue</Text>;
+    }
+
     return(
       <View style = {styles.container} >
 
@@ -61,6 +74,8 @@ class Login extends Component {
             </Text>
         </TouchableHighlight>
 
+        {errorCtrl}
+
         <ActivityIndicator
           animating = {this.state.showProgress}
           size = "large"
@@ -84,10 +99,28 @@ class Login extends Component {
       }
     })
     .then((response) => {
+      if(response.status >= 200 && response.status < 300)
+      {
+        return response;
+      }
+
+      throw {
+        badCredentials: response.status == 401,
+        unknownError: response.status != 401
+      }
+    })
+    .then((response) => {
       return response.json();
     })
     .then((result) => {
       console.log(result);
+      this.setState({success: true});
+    })
+    .catch((err) => {
+      console.log('Sign in failed: ' + err);
+      this.setState(err)
+    })
+    .finally(() => {
       this.setState({showProgress: false});
     });
 
@@ -134,6 +167,10 @@ var styles = StyleSheet.create({
   },
   progressloader: {
     marginTop: 20,
+  },
+  error: {
+    color: 'red',
+    paddingTop: 10,
   }
 })
 
