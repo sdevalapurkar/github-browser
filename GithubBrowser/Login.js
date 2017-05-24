@@ -1,6 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
+
 import {
   AppRegistry,
   StyleSheet,
@@ -11,6 +12,8 @@ import {
   TouchableHighlight,
   ActivityIndicator,
 } from 'react-native';
+
+var buffer = require('buffer');
 
 class Login extends Component {
   constructor(props) {
@@ -69,8 +72,25 @@ class Login extends Component {
   }
 
   onSigninPressed = () => {
-    console.log('Signing in with username' + this.state.username);
+    //console.log('Signing in with username' + this.state.username);
     this.setState({showProgress: true});
+
+    var b = new buffer.Buffer(this.state.username + ':' + this.state.password);
+    var encodedAuth = b.toString('base64');
+
+    fetch('https://api.github.com/user', {
+      headers: {
+        'Authorization' : 'Basic ' + encodedAuth
+      }
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((result) => {
+      console.log(result);
+      this.setState({showProgress: false});
+    });
+
   }
 
 }
