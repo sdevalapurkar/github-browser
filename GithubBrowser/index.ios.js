@@ -17,9 +17,6 @@ var Login = require('./Login');
 
 export default class GithubBrowser extends Component {
   render() {
-
-    var message = 'hello there 2';
-
     return (
       <Login />
     );

@@ -9,11 +9,16 @@ import {
   Image,
   TextInput,
   TouchableHighlight,
+  ActivityIndicator,
 } from 'react-native';
 
 class Login extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      showProgress: false,
+    };
   }
 
   state = {
@@ -22,34 +27,42 @@ class Login extends Component {
 
   render() {
     return(
-      <View style = {styles.container}>
+      <View style = {styles.container} >
 
         <Image style = {styles.logo}
-        source = {{ uri: "Octocat" }} />
+          source = {{ uri: "Octocat" }}
+        />
 
         <Text style = {styles.heading}>
-        Github Browser
+          Github Browser
         </Text>
 
         <TextInput
-        onChangeText = {(text) => this.setState({username: text})} //on change in text, it takes in some text and logs it
-        //onChangeText = {(text) => console.log(text)}
-        style = {styles.input}
-        placeholder = "Github Username" />
+          onChangeText = {(text) => this.setState({username: text})} //on change in text, it takes in some text and logs it
+          style = {styles.input}
+          placeholder = "Github Username"
+        />
 
         <TextInput
-        onChangeText = {(text) => this.setState({password: text})}
-        style = {styles.input}
-        placeholder = "Github Password"
-        secureTextEntry = {true} />
+          onChangeText = {(text) => this.setState({password: text})}
+          style = {styles.input}
+          placeholder = "Github Password"
+          secureTextEntry = {true}
+        />
 
         <TouchableHighlight
-        onPress = {this.onSigninPressed.bind(this)}
-        style = {styles.button} >
-          <Text style = {styles.buttonText}>
-          Sign In
-          </Text>
+          onPress = {this.onSigninPressed.bind(this)}
+          style = {styles.button} >
+            <Text style = {styles.buttonText}>
+              Sign In
+            </Text>
         </TouchableHighlight>
+
+        <ActivityIndicator
+          animating = {this.state.showProgress}
+          size = "large"
+          style = {styles.progressloader}
+        />
 
       </View>
     );
@@ -57,6 +70,7 @@ class Login extends Component {
 
   onSigninPressed = () => {
     console.log('Signing in with username' + this.state.username);
+    this.setState({showProgress: true});
   }
 
 }
@@ -97,6 +111,9 @@ var styles = StyleSheet.create({
     fontSize: 22,
     color: 'white',
     alignSelf: 'center'
+  },
+  progressloader: {
+    marginTop: 20,
   }
 })
 
