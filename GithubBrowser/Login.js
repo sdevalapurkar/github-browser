@@ -16,6 +16,10 @@ class Login extends Component {
     super(props);
   }
 
+  state = {
+
+  };
+
   render() {
     return(
       <View style = {styles.container}>
@@ -27,14 +31,21 @@ class Login extends Component {
         Github Browser
         </Text>
 
-        <TextInput style = {styles.input}
+        <TextInput
+        onChangeText = {(text) => this.setState({username: text})} //on change in text, it takes in some text and logs it
+        //onChangeText = {(text) => console.log(text)}
+        style = {styles.input}
         placeholder = "Github Username" />
 
-        <TextInput style = {styles.input}
+        <TextInput
+        onChangeText = {(text) => this.setState({password: text})}
+        style = {styles.input}
         placeholder = "Github Password"
         secureTextEntry = {true} />
 
-        <TouchableHighlight style = {styles.button} >
+        <TouchableHighlight
+        onPress = {this.onSigninPressed.bind(this)}
+        style = {styles.button} >
           <Text style = {styles.buttonText}>
           Sign In
           </Text>
@@ -43,6 +54,11 @@ class Login extends Component {
       </View>
     );
   }
+
+  onSigninPressed = () => {
+    console.log('Signing in with username' + this.state.username);
+  }
+
 }
 
 //set the style and light blue background for the entire view
