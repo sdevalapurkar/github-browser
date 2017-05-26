@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 
 import {
@@ -17,6 +11,7 @@ import {
 
 var Login = require('./Login');
 var AuthService = require('./AuthService');
+var AppContainer = require('./AppContainer');
 
 export default class GithubBrowser extends Component
 {
@@ -66,11 +61,7 @@ export default class GithubBrowser extends Component
     if(this.state.isLoggedIn)
     {
       return(
-        <View style = {styles.container} >
-          <Text style = {styles.welcome} >
-            Signed In
-          </Text>
-        </View>
+        <AppContainer />
       );
     }
     else
