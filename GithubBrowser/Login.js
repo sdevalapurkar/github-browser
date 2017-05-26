@@ -15,8 +15,10 @@ import {
 
 var buffer = require('buffer');
 
-class Login extends Component {
-  constructor(props) {
+class Login extends Component
+{
+  constructor(props)
+  {
     super(props);
 
     this.state = {
@@ -24,19 +26,19 @@ class Login extends Component {
     };
   }
 
-  state = {
+  state =
+  {
 
   };
 
-  render() {
-
+  render()
+  {
     var errorCtrl = <View />;
 
     if(!this.state.success && this.state.badCredentials)
     {
       errorCtrl = <Text style = {styles.error}> The username or password provided was incorrect</Text>;
     }
-
     if(!this.state.success && this.state.unknownError)
     {
       errorCtrl = <Text style = {styles.error}> Sorry, we are experiencing an unexpected issue</Text>;
@@ -86,22 +88,28 @@ class Login extends Component {
     );
   }
 
-  onSigninPressed = () => {
-    //console.log('Signing in with username' + this.state.username);
+  onSigninPressed = () =>
+  {
     this.setState({showProgress: true});
-
     var authService = require('./AuthService');
+
     authService.login({
       username: this.state.username,
       password: this.state.password,
-    }, (result) => {
+    },
+    (result) =>
+    {
       this.setState(Object.assign({
         showProgress: false
       }, result));
+
+      if(result.success && this.props.onLogin)
+      {
+        this.props.onLogin();
+      }
+
     });
-
   }
-
 }
 
 //set the style and light blue background for the entire view
