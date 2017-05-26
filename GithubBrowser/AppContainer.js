@@ -11,6 +11,7 @@ import {
   TextInput,
   TouchableHighlight,
   ActivityIndicator,
+  TabBarIOS,
 } from 'react-native';
 
 var buffer = require('buffer');
@@ -23,7 +24,7 @@ class AppContainer extends Component
 
     this.state =
     {
-
+      selectedTab: 'feed'
     };
   }
 
@@ -35,9 +36,29 @@ class AppContainer extends Component
   render()
   {
     return(
-      <View style = {styles.container} >
-        <Text style = {styles.welcome} > Tabs coming soon </Text>
-      </View>
+      <TabBarIOS style = {styles.container} >
+        <TabBarIOS.Item
+          title = "Feed"
+          selected = {this.state.selectedTab == 'feed'}
+          icon = {{ uri: "inbox" }}
+          onPress = {() => this.setState({
+            selectedTab: 'feed'
+          })}
+        >
+          <Text style = {styles.welcome}>Tab 1</Text>
+        </TabBarIOS.Item >
+
+        <TabBarIOS.Item
+          title = "Search"
+          selected = {this.state.selectedTab == 'search'}
+          icon = {{ uri: "search" }}
+          onPress = {() => this.setState({
+            selectedTab: 'search'
+          })}
+        >
+          <Text style = {styles.welcome}>Tab 2</Text>
+        </TabBarIOS.Item >
+      </TabBarIOS >  
     );
   }
 }
