@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 
 var buffer = require('buffer');
+var Feed = require('./Feed');
 
 class AppContainer extends Component
 {
@@ -45,7 +46,7 @@ class AppContainer extends Component
             selectedTab: 'feed'
           })}
         >
-          <Text style = {styles.welcome}>Tab 1</Text>
+          <Feed />
         </TabBarIOS.Item >
 
         <TabBarIOS.Item
@@ -58,7 +59,7 @@ class AppContainer extends Component
         >
           <Text style = {styles.welcome}>Tab 2</Text>
         </TabBarIOS.Item >
-      </TabBarIOS >  
+      </TabBarIOS >
     );
   }
 }
