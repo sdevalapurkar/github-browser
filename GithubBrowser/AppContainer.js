@@ -12,6 +12,7 @@ import {
   TouchableHighlight,
   ActivityIndicator,
   TabBarIOS,
+  NavigatorIOS,
 } from 'react-native';
 
 var buffer = require('buffer');
@@ -46,7 +47,16 @@ class AppContainer extends Component
             selectedTab: 'feed'
           })}
         >
-          <Feed />
+          <NavigatorIOS
+            style={{
+              flex: 1,
+
+            }}
+            initialRoute={{
+              component: Feed,
+              title: 'Feed'
+            }}>
+          </NavigatorIOS>
         </TabBarIOS.Item >
 
         <TabBarIOS.Item
