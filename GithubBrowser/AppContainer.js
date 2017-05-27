@@ -17,6 +17,7 @@ import {
 
 var buffer = require('buffer');
 var Feed = require('./Feed');
+var Search = require('./Search');
 
 class AppContainer extends Component
 {
@@ -67,7 +68,18 @@ class AppContainer extends Component
             selectedTab: 'search'
           })}
         >
-          <Text style = {styles.welcome}>Tab 2</Text>
+
+        <NavigatorIOS
+          style={{
+            flex: 1,
+
+          }}
+          initialRoute={{
+            component: Search,
+            title: 'Search'
+          }}>
+        </NavigatorIOS>
+
         </TabBarIOS.Item >
       </TabBarIOS >
     );
