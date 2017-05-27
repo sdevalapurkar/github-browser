@@ -111,7 +111,7 @@ class Feed extends Component
             {rowData.payload.ref.replace('refs/heads/', '')}
           </Text>
           <Text style = {{backgroundColor: '#F5FCFF'}}>
-            at <Text style = {{
+            at<Text style = {{
               fontWeight: 'bold'
             }}> {rowData.repo.name}</Text>
           </Text>
