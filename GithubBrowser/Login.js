@@ -1,6 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
+import AppContainer from './AppContainer.js';
 
 import {
   AppRegistry,
@@ -59,6 +60,7 @@ class Login extends Component
           onChangeText = {(text) => this.setState({username: text})} //on change in text, it takes in some text and logs it
           style = {styles.input}
           placeholder = "Github Username"
+          autoCapitalize="none"
         />
 
         <TextInput
@@ -66,6 +68,7 @@ class Login extends Component
           style = {styles.input}
           placeholder = "Github Password"
           secureTextEntry = {true}
+          autoCapitalize="none"
         />
 
         <TouchableHighlight
@@ -105,6 +108,7 @@ class Login extends Component
 
       if(result.success && this.props.onLogin)
       {
+        console.log("success??");
         this.props.onLogin();
       }
 

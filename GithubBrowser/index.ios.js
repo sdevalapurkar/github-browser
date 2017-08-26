@@ -32,16 +32,16 @@ export default class GithubBrowser extends Component
 
   };
 
-  componentDidMount()
-  {
-    AuthService.getAuthInfo((err, authInfo) =>
-    {
-      this.setState({
-        checkingAuth: false,
-        isLoggedIn: authInfo != null
-      })
-    });
-  }
+  // componentDidMount()
+  // {
+  //   AuthService.getAuthInfo((err, authInfo) =>
+  //   {
+  //     this.setState({
+  //       checkingAuth: false,
+  //       isLoggedIn: authInfo != null
+  //     })
+  //   });
+  // }
 
   render()
   {
