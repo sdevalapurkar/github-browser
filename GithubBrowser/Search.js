@@ -73,7 +73,7 @@ class Search extends Component
 
       if(this.state.totalCount !== 0 && this.state.totalCount !== undefined) {
         this.props.navigator.push({
-          title: 'Search Results',
+          title: 'Results',
           component: SearchResults,
           passProps: { totalCount: this.state.totalCount, items: this.state.items }
         });

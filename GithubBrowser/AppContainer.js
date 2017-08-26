@@ -76,7 +76,7 @@ class AppContainer extends Component
           }}
           initialRoute={{
             component: Search,
-            title: 'Search Repositories'
+            title: 'Search Repos'
           }}>
         </NavigatorIOS>
 
