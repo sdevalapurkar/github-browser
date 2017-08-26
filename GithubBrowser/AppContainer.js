@@ -55,7 +55,7 @@ class AppContainer extends Component
             }}
             initialRoute={{
               component: Feed,
-              title: 'Feed'
+              title: 'My Activity'
             }}>
           </NavigatorIOS>
         </TabBarIOS.Item >
@@ -76,7 +76,7 @@ class AppContainer extends Component
           }}
           initialRoute={{
             component: Search,
-            title: 'Search'
+            title: 'Search Repositories'
           }}>
         </NavigatorIOS>
 

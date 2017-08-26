@@ -12,6 +12,8 @@ import {
   TouchableHighlight,
   ActivityIndicator,
 } from 'react-native';
+import RenderIf from './RenderIf.js';
+import SearchResults from './SearchResults.js';
 
 class Search extends Component
 {
@@ -20,17 +22,15 @@ class Search extends Component
     super(props);
 
     this.state = {
-
+      totalCount: 0,
+      searchQuery: ''
     }
   }
 
-  state =
-  {
-
-  };
-
   render()
   {
+    console.log(this.state.totalCount);
+
     return(
       <View style = {styles.container} >
         <TextInput
@@ -47,13 +47,38 @@ class Search extends Component
             </Text>
         </TouchableHighlight>
 
+        {RenderIf(this.state.totalCount === undefined, 
+          <View style={{paddingTop: 10}}>
+            <Text style={{color: 'red', fontSize: 14, fontWeight: 'bold'}}>
+              Sorry no repositories exist by that name :(
+            </Text>
+          </View>
+        )}
+
       </View>
     );
   }
 
   onSearchPressed = () =>
   {
+    fetch("https://api.github.com/search/repositories?q=" + this.state.searchQuery)
+    .then((response) => {
+      return response;
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((result) => {
+      this.setState({ totalCount: result.total_count, items: result.items });
 
+      if(this.state.totalCount !== 0 && this.state.totalCount !== undefined) {
+        this.props.navigator.push({
+          title: 'Search Results',
+          component: SearchResults,
+          passProps: { totalCount: this.state.totalCount, items: this.state.items }
+        });
+      }
+    });
   }
 }
 
