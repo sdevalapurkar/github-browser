@@ -13,42 +13,36 @@ var Login = require('./Login');
 var AuthService = require('./AuthService');
 var AppContainer = require('./AppContainer');
 
-export default class GithubBrowser extends Component
-{
-  constructor(props)
-  {
+export default class GithubBrowser extends Component {
+  constructor(props) {
     super(props);
 
-    this.state =
-    {
+    this.state = {
       isLoggedIn: false,
     };
 
     this.onLogin = this.onLogin.bind(this);
   }
 
-  state =
-  {
+  state = {
 
   };
 
-  // componentDidMount()
-  // {
-  //   AuthService.getAuthInfo((err, authInfo) =>
-  //   {
-  //     this.setState({
-  //       checkingAuth: false,
-  //       isLoggedIn: authInfo != null
-  //     })
-  //   });
-  // }
+  /*
+  componentDidMount() {
+    AuthService.getAuthInfo((err, authInfo) => {
+      this.setState({
+        checkingAuth: false,
+        isLoggedIn: authInfo != null
+      })
+    });
+  }
+  */
 
-  render()
-  {
-    if(this.state.checkingAuth)
-    {
-      return(
-        <View style = {styles.container} >
+  render() {
+    if(this.state.checkingAuth) {
+      return (
+        <View style = {styles.container}>
           <ActivityIndicator
             animating = {true}
             size = "large"
@@ -58,34 +52,28 @@ export default class GithubBrowser extends Component
       )
     }
 
-    if(this.state.isLoggedIn)
-    {
+    if(this.state.isLoggedIn) {
       return(
         <AppContainer />
       );
     }
-    else
-    {
+    else {
       return (
         <Login onLogin = {this.onLogin} />
       );
     }
   }
 
-  onLogin()
-  {
+  onLogin() {
     this.setState({isLoggedIn: true});
   }
 
-  getInitialState()
-  {
-    return
-    {
-      isLoggedIn: false
+  getInitialState() {
+    return {
+      isLoggedIn: false,
       checkingAuth: true
     }
   }
-
 }
 
 const styles = StyleSheet.create({

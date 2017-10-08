@@ -1,7 +1,5 @@
 'use strict';
-
 import React, { Component } from 'react';
-
 import {
   AppRegistry,
   StyleSheet,
@@ -19,27 +17,22 @@ var buffer = require('buffer');
 var Feed = require('./Feed');
 var Search = require('./Search');
 
-class AppContainer extends Component
-{
-  constructor(props)
-  {
+class AppContainer extends Component {
+  constructor(props) {
     super(props);
 
-    this.state =
-    {
+    this.state = {
       selectedTab: 'feed'
     };
   }
 
-  state =
-  {
+  state = {
 
   };
 
-  render()
-  {
-    return(
-      <TabBarIOS style = {styles.container} >
+  render() {
+    return (
+      <TabBarIOS style = {styles.container}>
         <TabBarIOS.Item
           title = "Feed"
           selected = {this.state.selectedTab == 'feed'}
@@ -48,15 +41,13 @@ class AppContainer extends Component
             selectedTab: 'feed'
           })}
         >
-          <NavigatorIOS
-            style={{
-              flex: 1,
-
-            }}
+          <NavigatorIOS 
+            style={{flex: 1}}
             initialRoute={{
               component: Feed,
               title: 'My Activity'
-            }}>
+            }}
+          >
           </NavigatorIOS>
         </TabBarIOS.Item >
 
@@ -70,14 +61,12 @@ class AppContainer extends Component
         >
 
         <NavigatorIOS
-          style={{
-            flex: 1,
-
-          }}
+          style={{flex: 1}}
           initialRoute={{
             component: Search,
             title: 'Search Repos'
-          }}>
+          }}
+        >
         </NavigatorIOS>
 
         </TabBarIOS.Item >

@@ -1,7 +1,5 @@
 'use strict';
-
 import React, { Component } from 'react';
-
 import {
   AppRegistry,
   Text,
@@ -16,10 +14,8 @@ var buffer = require('buffer');
 var moment = require('moment');
 var PushPayload = require('./PushPayload.js');
 
-class Feed extends Component
-{
-  constructor(props)
-  {
+class Feed extends Component {
+  constructor(props) {
     super(props);
 
     var ds = new ListView.DataSource({
@@ -32,36 +28,32 @@ class Feed extends Component
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.fetchFeed();
   }
 
-  fetchFeed(){
-    require('./AuthService').getAuthInfo((err, authInfo)=> {
+  fetchFeed() {
+    require('./AuthService').getAuthInfo((err, authInfo) => {
       var url = 'https://api.github.com/users/'
         + authInfo.user.login
         + '/events/public';
 
-      fetch(url, {
-        headers: authInfo.header
-      })
-      .then((response)=> response.json())
-      .then((responseData)=> {
+      fetch(url, { headers: authInfo.header })
+      .then((response) => response.json())
+      .then((responseData) => {
         var feedItems =
-          responseData.filter((ev)=>
+          responseData.filter((ev) =>
             ev.type == 'PushEvent');
 
         this.setState({
-          dataSource: this.state.dataSource
-            .cloneWithRows(feedItems),
+          dataSource: this.state.dataSource.cloneWithRows(feedItems),
           showProgress: false
         });
-
       })
     });
   }
 
-  pressRow(rowData){
+  pressRow(rowData) {
     this.props.navigator.push({
       title: 'Push Event',
       component: PushPayload,
@@ -71,8 +63,8 @@ class Feed extends Component
     });
   }
 
-  renderRow(rowData){
-    return(
+  renderRow(rowData) {
+    return (
       <TouchableHighlight
         onPress={()=> this.pressRow(rowData)}
         underlayColor='#ddd'
@@ -103,17 +95,23 @@ class Feed extends Component
             {moment(rowData.created_at).fromNow()}
           </Text>
           <Text style = {{backgroundColor: '#F5FCFF'}}>
-            <Text style={{
-              fontWeight: 'bold'
-            }}>{rowData.actor.login}</Text> pushed to
+            <Text 
+              style={{ fontWeight: 'bold' }}
+            >
+              {rowData.actor.login}
+            </Text> 
+             ->pushed to
           </Text>
           <Text style = {{backgroundColor: '#F5FCFF'}}>
             {rowData.payload.ref.replace('refs/heads/', '')}
           </Text>
           <Text style = {{backgroundColor: '#F5FCFF'}}>
-            at<Text style = {{
-              fontWeight: 'bold'
-            }}> {rowData.repo.name}</Text>
+            at-> 
+            <Text 
+              style = {{ fontWeight: 'bold' }}
+            > 
+              {rowData.repo.name}
+            </Text>
           </Text>
 
         </View>
@@ -127,21 +125,18 @@ class Feed extends Component
   };
 
   render() {
-    if(this.state.showProgress)
-    {
-      return(
-        <View style={{
-          flex: 1,
-          justifyContent: 'center'
-        }}>
+    if(this.state.showProgress) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center' }}>
           <ActivityIndicator
             size = "large"
-            animating = {true} />
+            animating = {true} 
+          />
         </View>
       );
     }
 
-    return(
+    return (
       <View style={{
         flex: 1,
         justifyContent: 'flex-start',
