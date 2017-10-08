@@ -1,7 +1,5 @@
 'use strict';
-
 import React, { Component } from 'react';
-
 import {
   AppRegistry,
   Text,
@@ -16,10 +14,8 @@ import {
 var buffer = require('buffer');
 var moment = require('moment');
 
-class PushPayload extends Component
-{
-  constructor(props)
-  {
+class PushPayload extends Component {
+  constructor(props) {
     super(props);
 
     var ds = new ListView.DataSource({
@@ -32,20 +28,17 @@ class PushPayload extends Component
     };
   }
 
-  renderRow(rowData){
-    return(
-      <View style={{
-        flex: 1,
-        justifyContent: 'center',
-        borderColor:'#D7D7D7',
-        borderBottomWidth: 1,
-        paddingTop: 20,
-        paddingBottom: 20,
-        padding: 10,
-      }}>
+  renderRow(rowData) {
+    return ( 
+      <View style={styles.viewStyle}>
+        <Text>
 
-      <Text><Text style={styles.bold}>{rowData.sha.substring(0, 6)}</Text> - {rowData.message}</Text>
-
+          <Text style={styles.bold}>
+            {rowData.sha.substring(0, 6)}
+          </Text> 
+          
+          - {rowData.message}
+        </Text>
       </View>
     );
   }
@@ -55,14 +48,8 @@ class PushPayload extends Component
   };
 
   render() {
-    return(
-      <View style={{
-        flex: 1,
-        paddingTop: 80,
-        justifyContent: 'flex-start',
-        backgroundColor: '#F5FCFF',
-        alignItems: 'center'
-      }}>
+    return (
+      <View style={styles.mainView}>
         <Image
           source={{uri: this.state.pushEvent.actor.avatar_url}}
           style={{
@@ -79,9 +66,25 @@ class PushPayload extends Component
           {moment(this.state.pushEvent.created_at).fromNow()}
         </Text>
 
-        <Text><Text style={styles.bold}>{this.state.pushEvent.actor.login}</Text> pushed to</Text>
-        <Text><Text style={styles.bold}>{this.state.pushEvent.payload.ref.replace('refs/heads/', '')}</Text></Text>
-        <Text>at <Text style={styles.bold}>{this.state.pushEvent.repo.name}</Text></Text>
+        <Text>
+          <Text style={styles.bold}>
+            {this.state.pushEvent.actor.login} 
+          </Text> 
+          ->pushed to
+        </Text>
+
+        <Text>
+          <Text style={styles.bold}>
+            {this.state.pushEvent.payload.ref.replace('refs/heads/', '')}
+          </Text>
+        </Text>
+
+        <Text>
+          at->
+          <Text style={styles.bold}>
+            {this.state.pushEvent.repo.name}
+          </Text>
+        </Text>
 
         <Text style={{
           paddingTop: 40,
@@ -95,7 +98,8 @@ class PushPayload extends Component
             top: -40
           }}
           dataSource={this.state.dataSource}
-          renderRow={this.renderRow.bind(this)} />
+          renderRow={this.renderRow.bind(this)} 
+        />
 
       </View>
     );
@@ -106,6 +110,22 @@ var styles = StyleSheet.create({
   bold: {
     fontWeight: '800',
     fontSize: 16,
+  },
+  viewStyle: {
+    flex: 1,
+    justifyContent: 'center',
+    borderColor:'#D7D7D7',
+    borderBottomWidth: 1,
+    paddingTop: 20,
+    paddingBottom: 20,
+    padding: 10,
+  },
+  mainView: {
+    flex: 1,
+    paddingTop: 80,
+    justifyContent: 'flex-start',
+    backgroundColor: '#F5FCFF',
+    alignItems: 'center'
   }
 });
 

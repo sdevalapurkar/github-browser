@@ -1,8 +1,6 @@
 'use strict';
-
 import React, { Component } from 'react';
 import AppContainer from './AppContainer.js';
-
 import {
   AppRegistry,
   StyleSheet,
@@ -16,10 +14,8 @@ import {
 
 var buffer = require('buffer');
 
-class Login extends Component
-{
-  constructor(props)
-  {
+class Login extends Component {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -27,28 +23,24 @@ class Login extends Component
     };
   }
 
-  state =
-  {
+  state = {
 
   };
 
-  render()
-  {
+  render() {
     var errorCtrl = <View />;
 
-    if(!this.state.success && this.state.badCredentials)
-    {
+    if(!this.state.success && this.state.badCredentials) {
       errorCtrl = <Text style = {styles.error}> The username or password provided was incorrect</Text>;
     }
-    if(!this.state.success && this.state.unknownError)
-    {
+    if(!this.state.success && this.state.unknownError) {
       errorCtrl = <Text style = {styles.error}> Sorry, we are experiencing an unexpected issue</Text>;
     }
 
-    return(
+    return (
       <View style = {styles.container} >
-
-        <Image style = {styles.logo}
+        <Image 
+          style = {styles.logo}
           source = {{ uri: "Octocat" }}
         />
 
@@ -57,7 +49,7 @@ class Login extends Component
         </Text>
 
         <TextInput
-          onChangeText = {(text) => this.setState({username: text})} //on change in text, it takes in some text and logs it
+          onChangeText = {(text) => this.setState({username: text})}
           style = {styles.input}
           placeholder = "Github Username"
           autoCapitalize="none"
@@ -91,36 +83,29 @@ class Login extends Component
     );
   }
 
-  onSigninPressed = () =>
-  {
+  onSigninPressed = () => {
     this.setState({showProgress: true});
     var authService = require('./AuthService');
 
     authService.login({
       username: this.state.username,
       password: this.state.password,
-    },
-    (result) =>
-    {
+    }, (result) => {
       this.setState(Object.assign({
         showProgress: false
       }, result));
 
-      if(result.success && this.props.onLogin)
-      {
-        console.log("success??");
+      if(result.success && this.props.onLogin) {
         this.props.onLogin();
       }
-
     });
   }
 }
 
-//set the style and light blue background for the entire view
 var styles = StyleSheet.create({
   container: {
     backgroundColor: '#F5FCFF',
-    flex: 1, //ask the container to occupy space
+    flex: 1,
     paddingTop: 40,
     alignItems: 'center',
     padding: 10,
