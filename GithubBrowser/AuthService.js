@@ -4,33 +4,25 @@ var _ = require('lodash'); //used to convert nested arrays into objects
 
 const authKey = 'auth';
 const userKey = 'user';
-
-class AuthService
-{
-  getAuthInfo(cb)
-  {
-    AsyncStorage.multiGet([authKey, userKey], (err, val) =>
-    {
-      if(err)
-      {
+ 
+class AuthService {
+  getAuthInfo(cb) {
+    AsyncStorage.multiGet([authKey, userKey], (err, val) => {
+      if(err) {
         return cb(err);
       }
-      if(!val)
-      {
+      if(!val) {
         return cb();
       }
 
       var zippedObj = _.fromPairs(val);
 
-      if(!zippedObj[authKey])
-      {
+      if(!zippedObj[authKey]) {
         return cb();
       }
 
-      var authInfo =
-      {
-        header:
-        {
+      var authInfo = {
+        header: {
           Authorization: 'Basic ' + zippedObj[authKey]
         },
         user: JSON.parse(zippedObj[userKey])
@@ -40,22 +32,17 @@ class AuthService
     });
   }
 
-  login(creds, cb)
-  {
+  login(creds, cb) {
     var b = new buffer.Buffer(creds.username + ':' + creds.password);
     var encodedAuth = b.toString('base64');
 
-    fetch('https://api.github.com/user',
-    {
-      headers:
-      {
+    fetch('https://api.github.com/user', {
+      headers: {
         'Authorization' : 'Basic ' + encodedAuth
       }
     })
-    .then((response) =>
-    {
-      if(response.status >= 200 && response.status < 300)
-      {
+    .then((response) => {
+      if(response.status >= 200 && response.status < 300) {
         return response;
       }
       throw {
@@ -63,30 +50,22 @@ class AuthService
         unknownError: response.status != 401
       }
     })
-    .then((response) =>
-    {
+    .then((response) => {
       return response.json();
     })
-    .then((result) =>
-    {
+    .then((result) => {
       AsyncStorage.multiSet([
-
         [authKey, encodedAuth],
         [userKey, JSON.stringify(result)]
-
-      ],
-      (err) =>
-      {
-        if(err)
-        {
+      ], (err) => {
+        if(err) {
           throw err;
         }
 
         return cb({success: true});
       })
     })
-    .catch((err) =>
-    {
+    .catch((err) => {
       console.log('Sign in failed: ' + err);
       return cb(err);
     });
