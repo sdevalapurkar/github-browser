@@ -22,10 +22,17 @@ class SearchResults extends Component {
     }
 
     render() {
+        console.log(this.props.searchQuery);
+
         return (
-            <ScrollView style={{backgroundColor: '#F5FCFF'}}>
-                <View style={{flex: 1, paddingTop: 10}}>
-                    <Text style={{textAlign: 'center', fontSize: 22, fontWeight: 'bold'}}>Total Repositories</Text>
+            <ScrollView 
+                contentInset={{top:0}}
+                automaticallyAdjustContentInsets={false} 
+                style={{backgroundColor: '#F5FCFF'}}
+            >
+                <View style={{flex: 1, paddingTop: 20}}>
+                    <Text style={{textAlign: 'center', fontSize: 26}}>{this.props.searchQuery}</Text>
+                    <Text style={{textAlign: 'center', fontSize: 20, fontWeight: 'bold', paddingTop: 10}}>Total Repositories</Text>
                     <Text style={{textAlign: 'center', fontSize: 18}}>{this.props.totalCount}</Text>
 
                     <View>

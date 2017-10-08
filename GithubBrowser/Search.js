@@ -1,7 +1,5 @@
 'use strict';
-
 import React, { Component } from 'react';
-
 import {
   AppRegistry,
   StyleSheet,
@@ -15,26 +13,21 @@ import {
 import RenderIf from './RenderIf.js';
 import SearchResults from './SearchResults.js';
 
-class Search extends Component
-{
-  constructor(props)
-  {
+class Search extends Component {
+  constructor(props) {
     super(props);
 
     this.state = {
-      totalCount: 0,
+      totalCount: undefined,
       searchQuery: ''
     }
   }
 
-  render()
-  {
-    console.log(this.state.totalCount);
-
-    return(
-      <View style = {styles.container} >
+  render() {
+    return (
+      <View style = {styles.container}>
         <TextInput
-          onChangeText = {(text) => this.setState({searchQuery: text})} //on change in text, it takes in some text and logs it
+          onChangeText = {(text) => this.setState({searchQuery: text})}
           style = {styles.input}
           placeholder = "Search Query"
         />
@@ -47,7 +40,7 @@ class Search extends Component
             </Text>
         </TouchableHighlight>
 
-        {RenderIf(this.state.totalCount === undefined, 
+        {RenderIf(this.state.totalCount === 0, 
           <View style={{paddingTop: 10}}>
             <Text style={{color: 'red', fontSize: 14, fontWeight: 'bold'}}>
               Sorry no repositories exist by that name :(
@@ -59,8 +52,7 @@ class Search extends Component
     );
   }
 
-  onSearchPressed = () =>
-  {
+  onSearchPressed = () => {
     fetch("https://api.github.com/search/repositories?q=" + this.state.searchQuery)
     .then((response) => {
       return response;
@@ -75,18 +67,17 @@ class Search extends Component
         this.props.navigator.push({
           title: 'Results',
           component: SearchResults,
-          passProps: { totalCount: this.state.totalCount, items: this.state.items }
+          passProps: { searchQuery: this.state.searchQuery, totalCount: this.state.totalCount, items: this.state.items }
         });
       }
     });
   }
 }
 
-//set the style and light blue background for the entire view
 var styles = StyleSheet.create({
   container: {
     backgroundColor: '#F5FCFF',
-    flex: 1, //ask the container to occupy space
+    flex: 1,
     paddingTop: 100,
     alignItems: 'center',
     padding: 10,
