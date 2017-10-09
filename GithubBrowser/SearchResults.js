@@ -9,7 +9,7 @@ class SearchResults extends Component {
     constructor(props) {
       super(props);
     }
-
+    
     returnItems() {
         return this.props.items.map(function(names, i) {
             return (
@@ -22,11 +22,9 @@ class SearchResults extends Component {
     }
 
     render() {
-        console.log(this.props.searchQuery);
-
         return (
             <ScrollView 
-                contentInset={{top:0}}
+                contentInset={{top: 0}}
                 automaticallyAdjustContentInsets={false} 
                 style={{backgroundColor: '#F5FCFF'}}
             >
