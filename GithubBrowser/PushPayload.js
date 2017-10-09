@@ -37,7 +37,7 @@ class PushPayload extends Component {
             {rowData.sha.substring(0, 6)}
           </Text> 
           
-          - {rowData.message}
+          -{rowData.message}
         </Text>
       </View>
     );

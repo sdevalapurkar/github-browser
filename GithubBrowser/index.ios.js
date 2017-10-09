@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import {
   AppRegistry,
   StyleSheet,
@@ -29,6 +28,7 @@ export default class GithubBrowser extends Component {
   };
 
   /*
+  ASYNC STORAGE OF USER CREDENTIALS
   componentDidMount() {
     AuthService.getAuthInfo((err, authInfo) => {
       this.setState({
